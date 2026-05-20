@@ -664,36 +664,49 @@
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
     background: var(--ink);
     border-top: 1px solid rgba(243,234,213,0.12);
-    padding: 20px 40px;
-    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    padding: 24px 40px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 40px;
     transform: translateY(100%);
     transition: transform .4s cubic-bezier(.16,1,.3,1);
+    box-shadow: 0 -8px 40px rgba(26,23,20,0.35);
   }
   .cookie-banner.visible{ transform: translateY(0); }
   .cookie-banner__text{
     flex: 1; min-width: 0;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px; letter-spacing: 0.13em; line-height: 1.75;
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: 13px; line-height: 1.65;
     color: rgba(243,234,213,0.65);
   }
+  .cookie-banner__title{
+    display: block;
+    font-family: "Antonio", sans-serif; font-weight: 600;
+    font-size: 17px; letter-spacing: 0.02em; text-transform: uppercase;
+    color: var(--paper); margin-bottom: 8px;
+  }
+  .cookie-banner__text p{ margin: 0; }
   .cookie-banner__text a{
     color: var(--accent); text-decoration: underline;
     text-underline-offset: 3px; text-decoration-thickness: 1px;
   }
   .cookie-banner__text a:hover{ color: rgba(243,234,213,0.9); }
-  .cookie-banner__actions{ display: flex; flex-shrink: 0; }
+  .cookie-banner__actions{ display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; padding-top: 2px; }
   .cookie-btn{
     font-family: "JetBrains Mono", monospace;
     font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    padding: 10px 22px; border: 1px solid rgba(243,234,213,0.25);
+    padding: 11px 24px; border: 1px solid rgba(243,234,213,0.25);
     background: transparent; color: rgba(243,234,213,0.75); cursor: pointer;
     white-space: nowrap;
     transition: background .2s ease, color .2s ease, border-color .2s ease;
   }
   .cookie-btn:hover{ background: rgba(243,234,213,0.08); color: var(--paper); border-color: rgba(243,234,213,0.45); }
+  .cookie-btn--accept{
+    background: var(--accent); color: var(--paper); border-color: var(--accent);
+  }
+  .cookie-btn--accept:hover{ background: #9a1828; border-color: #9a1828; color: var(--paper); }
   @media (max-width: 768px){
-    .cookie-banner{ flex-direction: column; align-items: flex-start; padding: 18px 20px; gap: 14px; }
-    .cookie-btn{ width: 100%; text-align: center; }
+    .cookie-banner{ flex-direction: column; align-items: flex-start; padding: 20px 20px; gap: 18px; }
+    .cookie-banner__actions{ flex-direction: row; width: 100%; }
+    .cookie-btn{ flex: 1; text-align: center; }
   }
 
   /* Responsive — Tablet */
@@ -1154,14 +1167,14 @@
 <!-- ── Datenschutz-Hinweis ──────────────────────────────────────────── -->
 <!-- Kein Consent-Dialog nötig: Fonts sind self-hosted, keine Tracker.   -->
 <!-- YouTube-Videos laden erst nach aktivem Klick (= Einwilligung).      -->
-<div class="cookie-banner" id="cookie-banner" role="note" aria-label="Datenschutzhinweis">
-  <p class="cookie-banner__text">
-    Diese Website setzt keine Tracking-Cookies und lädt keine externen Ressourcen ohne Ihre Aktion.
-    YouTube-Videos werden erst nach Ihrem Klick über <em>youtube-nocookie.com</em> geladen — dabei wird Ihre IP-Adresse an YouTube&nbsp;(Google) übermittelt.
-    Mehr dazu in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.
-  </p>
+<div class="cookie-banner" id="cookie-notice" role="dialog" aria-label="Cookie-Einwilligung">
+  <div class="cookie-banner__text">
+    <strong class="cookie-banner__title">Wir nutzen Cookies und andere Technologien.</strong>
+    <p>Diese Seite nutzt einwilligungsbedürftige Cookies und Technologien von Drittunternehmen zur Integration bestimmter Funktionen. Wenn Sie hier einwilligen, werden diese Funktionen aktiviert. Nach der Einwilligung verarbeiten wir und die betroffenen Drittunternehmen Ihre personenbezogenen Daten für verschiedene Zwecke. Sie können Ihre Einwilligung jederzeit widerrufen oder Ihre Cookie-Einstellungen anpassen. Detaillierte Informationen zu Zweck, Rechtsgrundlagen, Drittunternehmen können Sie unserer <a href="datenschutz.html">Datenschutzerklärung</a> entnehmen.</p>
+  </div>
   <div class="cookie-banner__actions">
-    <button class="cookie-btn" id="cookie-dismiss">Verstanden</button>
+    <button class="cookie-btn cookie-btn--accept" id="cookie-accept">Akzeptieren</button>
+    <button class="cookie-btn" id="cookie-decline">Ablehnen</button>
   </div>
 </div>
 
@@ -1345,14 +1358,19 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
 
-  // ── Datenschutz-Hinweis ───────────────────────────────────────────────
-  var banner = document.getElementById('cookie-banner');
-  var dismissed = false;
-  try { dismissed = !!localStorage.getItem('ep_notice_dismissed'); } catch (e) {}
-  if (!dismissed) setTimeout(function () { banner.classList.add('visible'); }, 1000);
-  document.getElementById('cookie-dismiss').addEventListener('click', function () {
-    banner.classList.remove('visible');
-    try { localStorage.setItem('ep_notice_dismissed', '1'); } catch (e) {}
+  // ── Cookie-Einwilligung ───────────────────────────────────────────────
+  var cookieBanner = document.getElementById('cookie-notice');
+  var cookieKey = 'ep_consent';
+  var cookieAnswered = false;
+  try { cookieAnswered = !!localStorage.getItem(cookieKey); } catch (e) {}
+  if (!cookieAnswered) setTimeout(function () { cookieBanner.classList.add('visible'); }, 1000);
+  document.getElementById('cookie-accept').addEventListener('click', function () {
+    cookieBanner.classList.remove('visible');
+    try { localStorage.setItem(cookieKey, 'accepted'); } catch (e) {}
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function () {
+    cookieBanner.classList.remove('visible');
+    try { localStorage.setItem(cookieKey, 'declined'); } catch (e) {}
   });
 
   // ── Kontaktformular ───────────────────────────────────────────────────
@@ -1393,105 +1411,6 @@
 }());
 </script>
 
-<!-- ── Cookie Banner ──────────────────────────────────────────────────────── -->
-<style>
-  #cookie-banner{
-    position:fixed;bottom:0;left:0;right:0;z-index:9999;
-    background:var(--ink);color:var(--paper);
-    padding:28px 40px;
-    border-top:1px solid rgba(243,234,213,0.15);
-    display:flex;gap:32px;align-items:flex-start;
-    font-family:"Manrope",system-ui,sans-serif;
-    box-shadow:0 -8px 40px rgba(26,23,20,0.35);
-    transform:translateY(0);
-    transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s ease;
-  }
-  #cookie-banner.hidden{
-    transform:translateY(110%);
-    opacity:0;
-    pointer-events:none;
-  }
-  #cookie-banner .cb-text{flex:1;min-width:0;}
-  #cookie-banner .cb-title{
-    font-family:"Antonio",sans-serif;font-weight:600;
-    font-size:20px;letter-spacing:0.02em;text-transform:uppercase;
-    margin:0 0 10px;color:var(--paper);
-  }
-  #cookie-banner .cb-body{
-    font-size:13px;line-height:1.65;
-    color:rgba(243,234,213,0.72);
-    margin:0 0 10px;
-  }
-  #cookie-banner .cb-link{
-    font-family:"JetBrains Mono",monospace;
-    font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
-    color:var(--accent);text-underline-offset:4px;
-  }
-  #cookie-banner .cb-link:hover{color:#c02030;}
-  #cookie-banner .cb-actions{
-    display:flex;flex-direction:column;gap:10px;
-    align-items:stretch;flex-shrink:0;padding-top:2px;
-  }
-  #cookie-banner .cb-accept{
-    font-family:"JetBrains Mono",monospace;
-    font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
-    padding:12px 28px;
-    background:var(--accent);color:var(--paper);
-    border:1px solid var(--accent);
-    cursor:pointer;white-space:nowrap;
-    transition:background .2s ease,color .2s ease;
-  }
-  #cookie-banner .cb-accept:hover{background:#9a1828;border-color:#9a1828;}
-  #cookie-banner .cb-decline{
-    font-family:"JetBrains Mono",monospace;
-    font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
-    padding:12px 28px;
-    background:transparent;color:rgba(243,234,213,0.6);
-    border:1px solid rgba(243,234,213,0.2);
-    cursor:pointer;white-space:nowrap;
-    transition:background .2s ease,color .2s ease,border-color .2s ease;
-  }
-  #cookie-banner .cb-decline:hover{
-    background:rgba(243,234,213,0.08);
-    color:var(--paper);
-    border-color:rgba(243,234,213,0.45);
-  }
-  @media(max-width:720px){
-    #cookie-banner{flex-direction:column;gap:20px;padding:24px 20px;}
-    #cookie-banner .cb-actions{flex-direction:row;}
-    #cookie-banner .cb-accept,
-    #cookie-banner .cb-decline{flex:1;padding:12px 16px;}
-  }
-</style>
-
-<div id="cookie-banner" class="hidden" role="dialog" aria-label="Cookie-Einwilligung" aria-live="polite">
-  <div class="cb-text">
-    <p class="cb-title">Wir nutzen Cookies und andere Technologien.</p>
-    <p class="cb-body">Diese Seite nutzt einwilligungsbedürftige Cookies und Technologien von Drittunternehmen zur Integration bestimmter Funktionen. Wenn Sie hier einwilligen, werden diese Funktionen aktiviert. Nach der Einwilligung verarbeiten wir und die betroffenen Drittunternehmen Ihre personenbezogenen Daten für verschiedene Zwecke. Sie können Ihre Einwilligung jederzeit widerrufen oder Ihre Cookie-Einstellungen anpassen. Detaillierte Informationen zu Zweck, Rechtsgrundlagen, Drittunternehmen können Sie unserer unten verlinkten Datenschutzerklärung entnehmen.</p>
-    <a href="datenschutz.html" class="cb-link">→ Datenschutzerklärung</a>
-  </div>
-  <div class="cb-actions">
-    <button class="cb-accept" id="cb-accept">Alle akzeptieren</button>
-    <button class="cb-decline" id="cb-decline">Ablehnen</button>
-  </div>
-</div>
-
-<script>
-(function(){
-  var KEY = 'ep_cookie_consent';
-  var banner = document.getElementById('cookie-banner');
-  if (localStorage.getItem(KEY)) return;
-  setTimeout(function(){ banner.classList.remove('hidden'); }, 800);
-  document.getElementById('cb-accept').addEventListener('click', function(){
-    localStorage.setItem(KEY, 'accepted');
-    banner.classList.add('hidden');
-  });
-  document.getElementById('cb-decline').addEventListener('click', function(){
-    localStorage.setItem(KEY, 'declined');
-    banner.classList.add('hidden');
-  });
-}());
-</script>
 
 </body>
 </html>
