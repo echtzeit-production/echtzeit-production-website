@@ -1364,11 +1364,30 @@
     var email     = form.querySelector('[name="email"]').value.trim();
     var betreff   = form.querySelector('[name="betreff"]').value;
     var nachricht = form.querySelector('[name="nachricht"]').value.trim();
-    var subject   = encodeURIComponent(betreff || 'Anfrage \u00fcber Website');
-    var body      = encodeURIComponent('Name: ' + name + '\nE-Mail: ' + email + '\n\n' + nachricht);
-    window.location.href = 'mailto:info@echtzeit-production.de?subject=' + subject + '&body=' + body;
-    form.hidden = true;
-    thanks.hidden = false;
+    var btn       = form.querySelector('.cf-submit');
+    btn.disabled  = true;
+    btn.textContent = 'Wird gesendet\u2026';
+    fetch('/api/kontakt', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ name: name, email: email, betreff: betreff, nachricht: nachricht }),
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.ok) {
+        form.hidden   = true;
+        thanks.hidden = false;
+      } else {
+        btn.disabled    = false;
+        btn.textContent = 'Anfrage senden';
+        alert(data.error || 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.');
+      }
+    })
+    .catch(function () {
+      btn.disabled    = false;
+      btn.textContent = 'Anfrage senden';
+      alert('Verbindungsfehler. Bitte versuche es erneut oder schreib uns direkt an info@echtzeit-production.de');
+    });
   });
 
 }());
