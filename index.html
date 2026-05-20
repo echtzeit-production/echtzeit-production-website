@@ -1224,18 +1224,18 @@
     var img = tile.querySelector('img');
     if (!img) return;
     var ytId = tile.dataset.youtube;
-    img.addEventListener('load', function () {
-      if (img.naturalWidth <= 120 && !img.dataset.fb) {
-        img.dataset.fb = '1';
-        img.src = 'https://i.ytimg.com/vi/' + ytId + '/hqdefault.jpg';
-      }
-    });
-    img.addEventListener('error', function () {
+    function useFallback() {
       if (!img.dataset.fb) {
         img.dataset.fb = '1';
         img.src = 'https://i.ytimg.com/vi/' + ytId + '/hqdefault.jpg';
       }
+    }
+    img.addEventListener('load', function () {
+      if (img.naturalWidth <= 120) useFallback();
     });
+    img.addEventListener('error', useFallback);
+    // Image may already have failed before listener was attached
+    if (img.complete && img.naturalWidth === 0) useFallback();
   });
 
   // ── Modal + YouTube Click-to-Load ─────────────────────────────────────
