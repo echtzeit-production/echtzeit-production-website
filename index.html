@@ -1367,7 +1367,7 @@
     var btn       = form.querySelector('.cf-submit');
     btn.disabled  = true;
     btn.textContent = 'Wird gesendet\u2026';
-    fetch('/api/kontakt', {
+    fetch('https://api.echtzeit-production.de/api/kontakt', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ name: name, email: email, betreff: betreff, nachricht: nachricht }),
