@@ -340,6 +340,7 @@
   .tile{
     position:relative; aspect-ratio: 16/10;
     overflow:hidden; cursor: pointer;
+    background: var(--ink-2);
   }
   .tile.short{ aspect-ratio: 9/16; max-width: 260px; justify-self: center; width: 100%;
     background: var(--ink);
@@ -377,9 +378,10 @@
   /* tile entry animation */
   .tile{
     opacity:0; transform: translateY(14px);
-    animation: tileIn .7s cubic-bezier(.2,.7,.2,1) forwards;
+    animation: tileIn .7s cubic-bezier(.2,.7,.2,1) both;
   }
   @keyframes tileIn{
+    from{ opacity:0; transform: translateY(14px); }
     to{ opacity:1; transform: translateY(0); }
   }
 
@@ -879,7 +881,7 @@
       data-year="2024" data-runtime="04:12" data-location="Baden-Württemberg"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="Dayana &amp; Michi — Hochzeitsfilm ansehen">
       <img src="/images/thumbnails/jFerr3Xefao.jpg"
-        alt="Hochzeitsfilm Dayana &amp; Michi, Baden-Württemberg 2024 — Echtzeit Production" loading="lazy" decoding="async" />
+        alt="Hochzeitsfilm Dayana &amp; Michi, Baden-Württemberg 2024 — Echtzeit Production" decoding="async" />
       <div class="tile-veil" aria-hidden="true"></div>
       <span class="play" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
@@ -892,7 +894,7 @@
       data-year="2024" data-runtime="03:45" data-location="Deutschland"
       style="animation-delay:60ms" tabindex="0" role="button" aria-label="Hochzeitsfilm Reel II ansehen">
       <img src="/images/thumbnails/aOjbw06vjCA.jpg"
-        alt="Hochzeitsfilm Reel II 2024 — Echtzeit Production" loading="lazy" decoding="async" />
+        alt="Hochzeitsfilm Reel II 2024 — Echtzeit Production" decoding="async" />
       <div class="tile-veil" aria-hidden="true"></div>
       <span class="play" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
@@ -905,7 +907,7 @@
       data-year="2024" data-runtime="03:10" data-location="Deutschland"
       style="animation-delay:120ms" tabindex="0" role="button" aria-label="Hochzeitsfilm Reel III ansehen">
       <img src="/images/thumbnails/olIoMkXWGaQ.jpg"
-        alt="Hochzeitsfilm Reel III 2024 — Echtzeit Production" loading="lazy" decoding="async" />
+        alt="Hochzeitsfilm Reel III 2024 — Echtzeit Production" decoding="async" />
       <div class="tile-veil" aria-hidden="true"></div>
       <span class="play" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
@@ -918,7 +920,7 @@
       data-year="2024" data-runtime="02:30" data-location="Deutschland"
       style="animation-delay:180ms" tabindex="0" role="button" aria-label="Hochzeitsfilm Reel IV ansehen">
       <img src="/images/thumbnails/7Dnk1RHRXuo.jpg"
-        alt="Hochzeitsfilm Reel IV 2024 — Echtzeit Production" loading="lazy" decoding="async" />
+        alt="Hochzeitsfilm Reel IV 2024 — Echtzeit Production" decoding="async" />
       <div class="tile-veil" aria-hidden="true"></div>
       <span class="play" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
