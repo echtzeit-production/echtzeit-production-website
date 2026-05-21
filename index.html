@@ -879,19 +879,19 @@
 <!-- ── Hero ───────────────────────────────────────────────────────────── -->
 <section class="hero" id="top">
   <div class="halo" aria-hidden="true"></div>
-  <h1 class="hero-title display">DEIN FILM<span class="plus">.</span></h1>
+  <h1 class="hero-title display">100&nbsp;MIO.&nbsp;VIEWS.<span class="plus"> EIN FILMER.</span></h1>
   <div class="hero-sub">
     <div>
       <div class="value">700+</div>
-      <div>Projekte realisiert</div>
+      <div class="mono-xs">Projekte realisiert</div>
     </div>
     <div>
       <div class="value">100 Mio.</div>
-      <div>organische Views</div>
+      <div class="mono-xs">organische Views</div>
     </div>
     <div>
       <div class="value">Berlin · seit 2019</div>
-      <div>Videograph &amp; Editor</div>
+      <div class="mono-xs">Videograph &amp; Editor</div>
     </div>
   </div>
 </section>
@@ -1137,7 +1137,7 @@
         <textarea id="cf-nachricht" class="cf-input cf-textarea" name="nachricht" placeholder="Erzähl mir von deinem Projekt …" rows="5"></textarea>
       </div>
       <!-- honeypot — hidden from real users, bots fill it -->
-      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+      <input type="text" name="website" tabindex="-1" autocomplete="new-password" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
       <div class="cf-field cf-check-field">
         <label class="cf-check-label">
           <input type="checkbox" name="dsgvo" id="cf-dsgvo" class="cf-check-input" required />
@@ -1213,7 +1213,7 @@
     var idx = 0;
     tiles.forEach(function (tile) {
       // In "Alle" view exclude short tiles — mixing aspect ratios in one grid is broken
-      var show = isAll ? !tile.classList.contains('short') : tile.dataset.category === filter;
+      var show = isAll || tile.dataset.category === filter;
       if (show) {
         tile.classList.remove('hidden');
         tile.style.animation = 'none';
@@ -1316,9 +1316,9 @@
           '<h4>' + title + '</h4>' +
           '<p>' + desc + '</p>' +
           '<div class="credits">' +
-            '<div><div class="lbl">Year</div><div class="val">' + year + '</div></div>' +
-            '<div><div class="lbl">Runtime</div><div class="val">' + runtime + '</div></div>' +
-            '<div><div class="lbl">Location</div><div class="val">' + loc + '</div></div>' +
+            '<div><div class="lbl">Jahr</div><div class="val">' + year + '</div></div>' +
+            '<div><div class="lbl">Länge</div><div class="val">' + runtime + '</div></div>' +
+            '<div><div class="lbl">Ort</div><div class="val">' + loc + '</div></div>' +
             '<div><div class="lbl">Views</div><div class="val">' + views + '</div></div>' +
           '</div>' +
         '</div>' +
