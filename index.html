@@ -240,7 +240,7 @@
     color: var(--accent);
     display:inline-block;
     margin: 0 0.18em;
-    font-weight: 400;
+    font-weight: 700;
   }
   .hero-sub{
     display:grid; grid-template-columns: 1fr 1fr 1fr;
@@ -340,7 +340,6 @@
     overflow:hidden; cursor: pointer;
     background: var(--ink-2);
   }
-  .grid:not(.grid-shorts) .tile.short{ aspect-ratio: 16/10; max-width: none; }
   .tile.short{ aspect-ratio: 9/16; max-width: 260px; justify-self: center; width: 100%;
     background: var(--ink);
     border-radius: 0;
@@ -1238,7 +1237,7 @@
     var idx = 0;
     tiles.forEach(function (tile) {
       // In "Alle" view exclude short tiles — mixing aspect ratios in one grid is broken
-      var show = isAll || tile.dataset.category === filter;
+      var show = isAll ? !tile.classList.contains('short') : tile.dataset.category === filter;
       if (show) {
         tile.classList.remove('hidden');
         tile.style.animation = 'none';
