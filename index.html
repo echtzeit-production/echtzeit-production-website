@@ -317,6 +317,9 @@
   }
   .grid.grid-shorts{ grid-template-columns: repeat(3, 1fr); }
   .grid.grid-shorts .tile.short{ max-width: none; }
+  .grid.alle-mode{ grid-template-columns: repeat(4, 1fr); }
+  .grid.alle-mode .tile:not(.short){ grid-column: span 2; }
+  .grid.alle-mode .tile.short{ aspect-ratio: 9/16; max-width: none; justify-self: stretch; }
   .views-badge{
     display:inline-flex; align-items:center; gap:6px;
     font-family:"JetBrains Mono", monospace;
@@ -962,8 +965,21 @@
       </span>
     </article>
 
+    <article class="tile" data-category="Imagefilm"
+      data-youtube="4cn3k2qXDpw" data-num="05" data-title="Imagefilm — Markenfilm Berlin"
+      data-desc="Zweiminutiger Markenfilm: Workflow-Dokumentation, Mitarbeiter-Portraits, Produktshow. Ein Drehtag in Berlin, zweiter Tag Außenaufnahmen. Schnitt und Colorgrade in Final Cut Pro über 3 Tage. Eingesetzt für Website, LinkedIn und Messestand."
+      data-year="2024" data-runtime="02:10" data-location="Berlin"
+      style="animation-delay:0ms" tabindex="0" role="button" aria-label="Imagefilm Markenfilm Berlin ansehen">
+      <img src="/images/thumbnails/4cn3k2qXDpw.jpg"
+        alt="Imagefilm Berlin — Markenfilm Echtzeit Production 2024" loading="lazy" decoding="async" />
+      <div class="tile-veil" aria-hidden="true"></div>
+      <span class="play" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
+      </span>
+    </article>
+
     <article class="tile short" data-category="Social Media"
-      data-youtube="Jg8oq-0qlNE" data-num="05" data-title="HelpYouSmile — Short"
+      data-youtube="Jg8oq-0qlNE" data-num="06" data-title="HelpYouSmile — Short"
       data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
@@ -976,7 +992,7 @@
     </article>
 
     <article class="tile short" data-category="Social Media"
-      data-youtube="AgNIc5qt5xw" data-num="06" data-title="HelpYouSmile — Short"
+      data-youtube="AgNIc5qt5xw" data-num="07" data-title="HelpYouSmile — Short"
       data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
@@ -989,7 +1005,7 @@
     </article>
 
     <article class="tile short" data-category="Social Media"
-      data-youtube="dVLQtHcbmTw" data-num="07" data-title="HelpYouSmile — Short"
+      data-youtube="dVLQtHcbmTw" data-num="08" data-title="HelpYouSmile — Short"
       data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
@@ -1002,25 +1018,12 @@
     </article>
 
     <article class="tile short" data-category="Social Media"
-      data-youtube="rVkmCNuvPVE" data-num="08" data-title="HelpYouSmile — Short"
+      data-youtube="rVkmCNuvPVE" data-num="09" data-title="HelpYouSmile — Short"
       data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
       <img src="/images/thumbnails/rVkmCNuvPVE_short.jpg"
         alt="HelpYouSmile Short — Echtzeit Production" loading="lazy" decoding="async" />
-      <div class="tile-veil" aria-hidden="true"></div>
-      <span class="play" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
-      </span>
-    </article>
-
-    <article class="tile" data-category="Imagefilm"
-      data-youtube="4cn3k2qXDpw" data-num="09" data-title="Imagefilm — Markenfilm Berlin"
-      data-desc="Zweiminutiger Markenfilm: Workflow-Dokumentation, Mitarbeiter-Portraits, Produktshow. Ein Drehtag in Berlin, zweiter Tag Außenaufnahmen. Schnitt und Colorgrade in Final Cut Pro über 3 Tage. Eingesetzt für Website, LinkedIn und Messestand."
-      data-year="2024" data-runtime="02:10" data-location="Berlin"
-      style="animation-delay:0ms" tabindex="0" role="button" aria-label="Imagefilm Markenfilm Berlin ansehen">
-      <img src="/images/thumbnails/4cn3k2qXDpw.jpg"
-        alt="Imagefilm Berlin — Markenfilm Echtzeit Production 2024" loading="lazy" decoding="async" />
       <div class="tile-veil" aria-hidden="true"></div>
       <span class="play" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
@@ -1233,11 +1236,21 @@
         if (t.dataset.category === 'Social Media' && t.classList.contains('short')) hasShorts = true;
       });
     }
-    grid.className = 'grid' + (hasShorts ? ' grid-shorts' : '');
+    grid.className = 'grid' + (hasShorts ? ' grid-shorts' : isAll ? ' alle-mode' : '');
     var idx = 0;
+    var shortCount = 0;
     tiles.forEach(function (tile) {
-      // In "Alle" view exclude short tiles — mixing aspect ratios in one grid is broken
-      var show = isAll ? !tile.classList.contains('short') : tile.dataset.category === filter;
+      var show;
+      if (isAll) {
+        if (tile.classList.contains('short')) {
+          show = shortCount < 2;
+          if (show) shortCount++;
+        } else {
+          show = true;
+        }
+      } else {
+        show = tile.dataset.category === filter;
+      }
       if (show) {
         tile.classList.remove('hidden');
         tile.style.animation = 'none';
