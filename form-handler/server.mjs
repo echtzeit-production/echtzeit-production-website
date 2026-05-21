@@ -64,6 +64,9 @@ http.createServer(async (req, res) => {
     let data;
     try { data = JSON.parse(body); } catch { return json(res, 400, { error: 'Ungültige Anfrage.' }); }
 
+    const honeypot  = String(data.website   || '');
+    if (honeypot)   return json(res, 400, { error: 'Ungültige Anfrage.' });
+
     const name      = String(data.name      || '').trim().slice(0, 200);
     const email     = String(data.email     || '').trim().slice(0, 200);
     const betreff   = String(data.betreff   || '').trim().slice(0, 200);
