@@ -982,7 +982,7 @@
       data-desc="Vollständige Content-Produktion für den HelpYouSmile-Kanal (München): Konzept, Dreh, Schnitt, Upload-Cycle. Wochentakt über mehrere Jahre. Ergebnis: 100 Mio. organische Views auf YouTube Shorts &amp; TikTok."
       data-year="2022–2024" data-runtime="Ongoing" data-location="Deutschland" data-views="100 Mio."
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile — Case Study ansehen">
-      <img src="/images/thumbnails/4upU0GoXatk_short.jpg"
+      <img src="/images/thumbnails/helpyousmile-case-study.jpg"
         alt="HelpYouSmile YouTube Kanal — Social Media Produktion Echtzeit Production" loading="lazy" decoding="async" />
       <div class="tile-veil" aria-hidden="true"></div>
       <span class="play" aria-hidden="true">
@@ -1201,10 +1201,20 @@
   var grid  = document.getElementById('project-grid');
 
   function applyFilter(filter) {
-    grid.className = 'grid';
+    var isAll = filter === 'Alle';
+    // Use short grid only for Social Media filter AND only when short tiles actually exist
+    var hasShorts = false;
+    if (!isAll && filter === 'Social Media') {
+      tiles.forEach(function (t) {
+        if (t.dataset.category === 'Social Media' && t.classList.contains('short')) hasShorts = true;
+      });
+    }
+    grid.className = 'grid' + (hasShorts ? ' grid-shorts' : '');
     var idx = 0;
     tiles.forEach(function (tile) {
-      if (filter === 'Alle' || tile.dataset.category === filter) {
+      // In "Alle" view exclude short tiles — mixing aspect ratios in one grid is broken
+      var show = isAll ? !tile.classList.contains('short') : tile.dataset.category === filter;
+      if (show) {
         tile.classList.remove('hidden');
         tile.style.animation = 'none';
         tile.style.animationDelay = (idx % 8) * 60 + 'ms';
