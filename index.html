@@ -757,6 +757,7 @@
     .filter-row{ gap: 16px; padding-bottom: 40px; }
     .grid{ grid-template-columns: 1fr; }
     .grid.grid-shorts{ grid-template-columns: 1fr 1fr; }
+    .grid.alle-mode{ grid-template-columns: 1fr 1fr; }
     .tile.short{ max-width: 100%; }
     .about{
       grid-template-columns: 1fr;
@@ -805,6 +806,7 @@
     .brand-name img{ height: 110px; }
     .top-inner{ display: flex; justify-content: center; }
     .grid.grid-shorts{ grid-template-columns: 1fr; }
+    .grid.alle-mode{ grid-template-columns: 1fr; }
     .filter-row .chip{ font-size: 10px; }
   }
 
@@ -1009,6 +1011,32 @@
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
       <img src="/images/thumbnails/rVkmCNuvPVE_short.jpg"
+        alt="HelpYouSmile Short — Echtzeit Production" loading="lazy" decoding="async" />
+      <div class="tile-veil" aria-hidden="true"></div>
+      <span class="play" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
+      </span>
+    </article>
+
+    <article class="tile short" data-category="Social Media"
+      data-youtube="4upU0GoXatk" data-num="10" data-title="HelpYouSmile — Short"
+      data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
+      data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
+      style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
+      <img src="/images/thumbnails/4upU0GoXatk_short.jpg"
+        alt="HelpYouSmile Short — Echtzeit Production" loading="lazy" decoding="async" />
+      <div class="tile-veil" aria-hidden="true"></div>
+      <span class="play" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
+      </span>
+    </article>
+
+    <article class="tile short" data-category="Social Media"
+      data-youtube="v5h-33Xrsb8" data-num="11" data-title="HelpYouSmile — Short"
+      data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
+      data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
+      style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
+      <img src="/images/thumbnails/v5h-33Xrsb8_short.jpg"
         alt="HelpYouSmile Short — Echtzeit Production" loading="lazy" decoding="async" />
       <div class="tile-veil" aria-hidden="true"></div>
       <span class="play" aria-hidden="true">
@@ -1224,19 +1252,8 @@
     }
     grid.className = 'grid' + (hasShorts ? ' grid-shorts' : isAll ? ' alle-mode' : '');
     var idx = 0;
-    var shortCount = 0;
     tiles.forEach(function (tile) {
-      var show;
-      if (isAll) {
-        if (tile.classList.contains('short')) {
-          show = shortCount < 2;
-          if (show) shortCount++;
-        } else {
-          show = true;
-        }
-      } else {
-        show = tile.dataset.category === filter;
-      }
+      var show = isAll ? true : tile.dataset.category === filter;
       if (show) {
         tile.classList.remove('hidden');
         tile.style.animation = 'none';
