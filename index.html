@@ -228,7 +228,8 @@
   .hero-title{
     position:relative; z-index:1;
     text-align:center;
-    font-size: clamp(68px, 13.2vw, 220px);
+    font-size: clamp(32px, 5vw, 72px);
+    text-transform: uppercase;
     line-height: 0.92;
     color: var(--accent);
     margin: 0 auto;
@@ -732,7 +733,7 @@
   /* Responsive — Tablet */
   @media (max-width: 1080px){
     .top-inner{ grid-template-columns: 1fr auto 1fr; }
-    .brand-name img{ height: 100px; }
+    .brand-name img{ height: 160px; }
     .about{ gap: 48px; }
     .services-list .row{ grid-template-columns: 50px 1fr 1.4fr 60px; gap: 24px; }
     .contact-form-section{ padding: 80px 32px; }
@@ -748,7 +749,7 @@
     .top-inner{ display: flex; justify-content: center; }
     .top-cta{ display: none; }
     .brand-name{ grid-column: unset; }
-    .brand-name img{ height: 80px; }
+    .brand-name img{ height: 130px; }
     .hero{ padding: 0 20px 0; }
     .work{ padding: 24px 16px 60px; }
     .filter-row{ gap: 16px; padding-bottom: 40px; }
@@ -799,7 +800,7 @@
     .topbar-inner > div:nth-child(2){ display: none; }
     .topbar-inner > div:nth-child(3){ text-align: right; }
     .topbar .value{ font-size: 9px; }
-    .brand-name img{ height: 90px; }
+    .brand-name img{ height: 110px; }
     .top-inner{ display: flex; justify-content: center; }
     .grid.grid-shorts{ grid-template-columns: 1fr; }
     .filter-row .chip{ font-size: 10px; }
@@ -871,7 +872,7 @@
 <header class="top">
   <div class="top-inner">
     <a href="#top" class="brand-name" style="display:flex;flex-direction:column;align-items:center;gap:6px;" aria-label="Echtzeit Production — zur Startseite">
-      <img src="/images/logo1_png.png" alt="Echtzeit Production — Videograph Berlin" style="height:120px;width:auto;mix-blend-mode:multiply;display:block;" width="240" height="120" fetchpriority="high" />
+      <img src="/images/logo1_png.png" alt="Echtzeit Production — Videograph Berlin" style="height:200px;width:auto;mix-blend-mode:multiply;display:block;" width="400" height="200" fetchpriority="high" />
     </a>
     <div class="top-cta"></div>
   </div>
@@ -880,7 +881,7 @@
 <!-- ── Hero ───────────────────────────────────────────────────────────── -->
 <section class="hero" id="top">
   <div class="halo" aria-hidden="true"></div>
-  <h1 class="hero-title display">Echtzeit<span class="plus"> Production</span></h1>
+  <h1 class="hero-title display">ECHTZEIT<span class="plus"> PRODUCTION</span></h1>
   <div class="hero-sub">
     <div>
       <div class="value">700+</div>
@@ -897,22 +898,6 @@
   </div>
 </section>
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Hochzeitsfilm</span><span class="star">★</span>
-    <span>Imagefilm</span><span class="star">★</span>
-    <span>Werbefilm</span><span class="star">★</span>
-    <span>Social Media Content</span><span class="star">★</span>
-    <span>Eventfilm</span><span class="star">★</span>
-    <span>Schnitt &amp; Post</span><span class="star">★</span>
-    <span>Hochzeitsfilm</span><span class="star">★</span>
-    <span>Imagefilm</span><span class="star">★</span>
-    <span>Werbefilm</span><span class="star">★</span>
-    <span>Social Media Content</span><span class="star">★</span>
-    <span>Eventfilm</span><span class="star">★</span>
-    <span>Schnitt &amp; Post</span><span class="star">★</span>
-  </div>
-</div>
 
 
 <!-- ── Portfolio ──────────────────────────────────────────────────────── -->
@@ -978,25 +963,12 @@
       </span>
     </article>
 
-    <article class="tile" data-category="Social Media"
-      data-youtube="4upU0GoXatk" data-num="05" data-title="HelpYouSmile — YouTube-Kanal"
-      data-desc="Vollständige Content-Produktion für den HelpYouSmile-Kanal (München): Konzept, Dreh, Schnitt, Upload-Cycle. Wochentakt über mehrere Jahre. Ergebnis: 100 Mio. organische Views auf YouTube Shorts &amp; TikTok."
-      data-year="2022–2024" data-runtime="Ongoing" data-location="Deutschland" data-views="100 Mio."
-      style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile — Case Study ansehen">
-      <img src="/images/thumbnails/helpyousmile-case-study.jpg"
-        alt="HelpYouSmile YouTube Kanal — Social Media Produktion Echtzeit Production" loading="lazy" decoding="async" />
-      <div class="tile-veil" aria-hidden="true"></div>
-      <span class="play" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
-      </span>
-    </article>
-
     <article class="tile short" data-category="Social Media"
-      data-youtube="4upU0GoXatk" data-num="06" data-title="HelpYouSmile — Short"
+      data-youtube="Jg8oq-0qlNE" data-num="05" data-title="HelpYouSmile — Short"
       data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
-      <img src="/images/thumbnails/4upU0GoXatk_short.jpg"
+      <img src="/images/thumbnails/Jg8oq-0qlNE_short.jpg"
         alt="HelpYouSmile Short — Echtzeit Production" loading="lazy" decoding="async" />
       <div class="tile-veil" aria-hidden="true"></div>
       <span class="play" aria-hidden="true">
@@ -1005,7 +977,7 @@
     </article>
 
     <article class="tile short" data-category="Social Media"
-      data-youtube="AgNIc5qt5xw" data-num="07" data-title="HelpYouSmile — Short"
+      data-youtube="AgNIc5qt5xw" data-num="06" data-title="HelpYouSmile — Short"
       data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
@@ -1018,7 +990,7 @@
     </article>
 
     <article class="tile short" data-category="Social Media"
-      data-youtube="dVLQtHcbmTw" data-num="08" data-title="HelpYouSmile — Short"
+      data-youtube="dVLQtHcbmTw" data-num="07" data-title="HelpYouSmile — Short"
       data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
@@ -1031,7 +1003,7 @@
     </article>
 
     <article class="tile short" data-category="Social Media"
-      data-youtube="rVkmCNuvPVE" data-num="09" data-title="HelpYouSmile — Short"
+      data-youtube="rVkmCNuvPVE" data-num="08" data-title="HelpYouSmile — Short"
       data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
       data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
@@ -1043,21 +1015,8 @@
       </span>
     </article>
 
-    <article class="tile short" data-category="Social Media"
-      data-youtube="Jg8oq-0qlNE" data-num="10" data-title="HelpYouSmile — Short"
-      data-desc="YouTube Short für den HelpYouSmile-Kanal. Konzept, Dreh und Schnitt an einem Tag — im Wochentakt."
-      data-year="2022–2024" data-runtime="~1:00" data-location="Deutschland"
-      style="animation-delay:0ms" tabindex="0" role="button" aria-label="HelpYouSmile Short ansehen">
-      <img src="/images/thumbnails/Jg8oq-0qlNE_short.jpg"
-        alt="HelpYouSmile Short — Echtzeit Production" loading="lazy" decoding="async" />
-      <div class="tile-veil" aria-hidden="true"></div>
-      <span class="play" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
-      </span>
-    </article>
-
     <article class="tile" data-category="Imagefilm"
-      data-youtube="4cn3k2qXDpw" data-num="11" data-title="Imagefilm — Markenfilm Berlin"
+      data-youtube="4cn3k2qXDpw" data-num="09" data-title="Imagefilm — Markenfilm Berlin"
       data-desc="Zweiminutiger Markenfilm: Workflow-Dokumentation, Mitarbeiter-Portraits, Produktshow. Ein Drehtag in Berlin, zweiter Tag Außenaufnahmen. Schnitt und Colorgrade in Final Cut Pro über 3 Tage. Eingesetzt für Website, LinkedIn und Messestand."
       data-year="2024" data-runtime="02:10" data-location="Berlin"
       style="animation-delay:0ms" tabindex="0" role="button" aria-label="Imagefilm Markenfilm Berlin ansehen">
