@@ -234,7 +234,7 @@
     color: var(--accent);
     margin: 0 auto;
     letter-spacing: 0.01em;
-    white-space: nowrap;
+    padding: 0 20px;
   }
   .hero-title .plus{
     color: var(--accent);
@@ -1261,24 +1261,6 @@
     });
   });
 
-  // ── Thumbnail fallback ────────────────────────────────────────────────
-  tiles.forEach(function (tile) {
-    var img = tile.querySelector('img');
-    if (!img) return;
-    var ytId = tile.dataset.youtube;
-    function useFallback() {
-      if (!img.dataset.fb) {
-        img.dataset.fb = '1';
-        img.src = 'https://i.ytimg.com/vi/' + ytId + '/sddefault.jpg';
-      }
-    }
-    img.addEventListener('load', function () {
-      if (img.naturalWidth <= 120) useFallback();
-    });
-    img.addEventListener('error', useFallback);
-    // Image may already have failed before listener was attached
-    if (img.complete && img.naturalWidth === 0) useFallback();
-  });
 
   // ── Modal + YouTube Click-to-Load ─────────────────────────────────────
   // Iframe wird erst nach aktivem Klick eingebettet = Einwilligung durch Handlung.
@@ -1424,6 +1406,7 @@
     var betreff   = form.querySelector('[name="betreff"]').value;
     var nachricht = form.querySelector('[name="nachricht"]').value.trim();
     if (!name || !email || !nachricht) { showError('Bitte f\u00fclle alle Pflichtfelder aus.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('Bitte eine g\u00fcltige E-Mail-Adresse eingeben.'); return; }
     var btn       = form.querySelector('.cf-submit');
     btn.disabled  = true;
     btn.textContent = 'Wird gesendet\u2026';
