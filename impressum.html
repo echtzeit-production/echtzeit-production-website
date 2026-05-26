@@ -56,7 +56,7 @@
     text-decoration:none;
   }
   .brand-name img{
-    height:240px;width:auto;mix-blend-mode:multiply;display:block;
+    height:200px;width:auto;mix-blend-mode:multiply;display:block;
   }
   .brand-name span{
     font-family:"JetBrains Mono",ui-monospace,monospace;
@@ -79,15 +79,6 @@
     transition:background .2s ease,color .2s ease;
   }
   .ghost-btn:hover{background:var(--accent);color:var(--bg);}
-
-  /* Muster-Banner */
-  .muster-banner{
-    background:var(--accent);color:var(--paper);
-    padding:14px 40px;
-    font-family:"JetBrains Mono",ui-monospace,monospace;
-    font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
-    text-align:center;
-  }
 
   /* Page title */
   .page-title{
@@ -133,14 +124,6 @@
     margin:0 0 16px;max-width:72ch;
   }
   .legal-section a{color:var(--accent);text-underline-offset:4px;}
-  .placeholder{
-    background:rgba(122,20,30,0.1);
-    color:var(--accent-ink);
-    font-family:"JetBrains Mono",monospace;
-    font-size:0.9em;letter-spacing:0.04em;
-    padding:1px 6px;border-radius:2px;
-    border:1px dashed rgba(122,20,30,0.35);
-  }
 
   /* Footer */
   .foot{
@@ -159,10 +142,13 @@
   @media(max-width:900px){
     .top-inner{grid-template-columns:1fr auto;}
     .top-cta .ghost-btn{display:none;}
+    .brand-name img{height:160px;}
     .page-title{padding:50px 20px 40px;}
     .legal{padding:50px 20px 80px;}
     .foot{flex-direction:column;gap:12px;padding:20px;}
   }
+  @media(max-width:600px){ .brand-name img{height:130px;} }
+  @media(max-width:480px){ .brand-name img{height:110px;} }
 </style>
 </head>
 <body>
@@ -210,6 +196,11 @@
 
   <div class="legal-section">
     <h2>Verbraucher&shy;streit&shy;beilegung / Universal&shy;schlichtungs&shy;stelle</h2>
+    <p>
+      Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit,
+      die Sie unter <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noreferrer noopener">https://ec.europa.eu/consumers/odr/</a> finden.
+      Unsere E-Mail-Adresse finden Sie im Abschnitt „Kontakt" oben im Impressum.
+    </p>
     <p>
       Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
       Verbraucherschlichtungsstelle teilzunehmen.

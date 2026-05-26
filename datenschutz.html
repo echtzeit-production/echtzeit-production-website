@@ -56,7 +56,7 @@
     text-decoration:none;
   }
   .brand-name img{
-    height:240px;width:auto;mix-blend-mode:multiply;display:block;
+    height:200px;width:auto;mix-blend-mode:multiply;display:block;
   }
   .brand-name span{
     font-family:"JetBrains Mono",ui-monospace,monospace;
@@ -80,15 +80,6 @@
   }
   .ghost-btn:hover{background:var(--accent);color:var(--bg);}
 
-  /* Muster-Banner */
-  .muster-banner{
-    background:var(--accent);color:var(--paper);
-    padding:14px 40px;
-    font-family:"JetBrains Mono",ui-monospace,monospace;
-    font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
-    text-align:center;
-  }
-
   /* Page title */
   .page-title{
     max-width:1640px;margin:0 auto;
@@ -107,9 +98,9 @@
     margin:0;text-transform:uppercase;color:var(--ink);
   }
   .page-title .sub{
-    font-size:15px;color:var(--muted);margin-top:20px;
     font-family:"JetBrains Mono",monospace;
     font-size:11px;letter-spacing:0.16em;
+    color:var(--muted);margin-top:16px;
   }
 
   /* Legal content */
@@ -144,14 +135,6 @@
     font-size:16px;line-height:1.7;color:var(--ink-2);margin-bottom:6px;
   }
   .legal-section a{color:var(--accent);text-underline-offset:4px;}
-  .placeholder{
-    background:rgba(122,20,30,0.1);
-    color:var(--accent-ink);
-    font-family:"JetBrains Mono",monospace;
-    font-size:0.9em;letter-spacing:0.04em;
-    padding:1px 6px;border-radius:2px;
-    border:1px dashed rgba(122,20,30,0.35);
-  }
 
   /* Footer */
   .foot{
@@ -170,10 +153,13 @@
   @media(max-width:900px){
     .top-inner{grid-template-columns:1fr auto;}
     .top-cta .ghost-btn{display:none;}
+    .brand-name img{height:160px;}
     .page-title{padding:50px 20px 40px;}
     .legal{padding:50px 20px 80px;}
     .foot{flex-direction:column;gap:12px;padding:20px;}
   }
+  @media(max-width:600px){ .brand-name img{height:130px;} }
+  @media(max-width:480px){ .brand-name img{height:110px;} }
 </style>
 </head>
 <body>
@@ -301,7 +287,7 @@
     <h2>6. Plugins und Tools</h2>
     <h3>YouTube mit erweitertem Datenschutz</h3>
     <p>Diese Website bindet Videos der Website YouTube ein. Betreiber der Website ist die Google Ireland Limited („Google"), Gordon House, Barrow Street, Dublin 4, Irland.</p>
-    <p>Wenn Sie eine dieser Website besuchen, auf denen YouTube eingebunden ist, wird eine Verbindung zu den Servern von YouTube hergestellt. Dabei wird dem YouTube-Server mitgeteilt, welche unserer Seiten Sie besucht haben. Wenn Sie in Ihrem YouTube-Account eingeloggt sind, ermöglichen Sie YouTube, Ihr Surfverhalten direkt Ihrem persönlichen Profil zuzuordnen. Dies können Sie verhindern, indem Sie sich aus Ihrem YouTube-Account ausloggen.</p>
+    <p>Wenn Sie unsere Website besuchen, auf der YouTube eingebunden ist, wird eine Verbindung zu den Servern von YouTube hergestellt. Dabei wird dem YouTube-Server mitgeteilt, welche unserer Seiten Sie besucht haben. Wenn Sie in Ihrem YouTube-Account eingeloggt sind, ermöglichen Sie YouTube, Ihr Surfverhalten direkt Ihrem persönlichen Profil zuzuordnen. Dies können Sie verhindern, indem Sie sich aus Ihrem YouTube-Account ausloggen.</p>
     <p>Wir nutzen YouTube im erweiterten Datenschutzmodus. Videos, die im erweiterten Datenschutzmodus abgespielt werden, werden nach Aussage von YouTube nicht zur Personalisierung des Surfens auf YouTube eingesetzt. Anzeigen, die im erweiterten Datenschutzmodus ausgespielt werden, sind ebenfalls nicht personalisiert. Im erweiterten Datenschutzmodus werden keine Cookies gesetzt. Stattdessen werden jedoch sogenannte Local Storage Elemente im Browser des Users gespeichert, die ähnlich wie Cookies personenbezogene Daten beinhalten und zur Wiedererkennung eingesetzt werden können. Details zum erweiterten Datenschutzmodus finden Sie hier: <a href="https://support.google.com/youtube/answer/171780" target="_blank" rel="noreferrer">https://support.google.com/youtube/answer/171780</a>.</p>
     <p>Gegebenenfalls können nach der Aktivierung eines YouTube-Videos weitere Datenverarbeitungsvorgänge ausgelöst werden, auf die wir keinen Einfluss haben.</p>
     <p>Die Nutzung von YouTube erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z.&nbsp;B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.</p>
@@ -312,12 +298,6 @@
     <p>Weitere Informationen zu Google Fonts finden Sie unter <a href="https://developers.google.com/fonts/faq" target="_blank" rel="noreferrer">https://developers.google.com/fonts/faq</a> und in der Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noreferrer">https://policies.google.com/privacy?hl=de</a>.</p>
   </div>
 
-  <div class="legal-section">
-    <h2>7. eCommerce und Zahlungsanbieter</h2>
-    <h3>Verarbeiten von Kunden- und Vertragsdaten</h3>
-    <p>Wir erheben, verarbeiten und nutzen personenbezogene Kunden- und Vertragsdaten zur Begründung, inhaltlichen Ausgestaltung und Änderung unserer Vertragsbeziehungen. Personenbezogene Daten über die Inanspruchnahme dieser Website (Nutzungsdaten) erheben, verarbeiten und nutzen wir nur, soweit dies erforderlich ist, um dem Nutzer die Inanspruchnahme des Dienstes zu ermöglichen oder abzurechnen. Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. b DSGVO.</p>
-    <p>Die erhobenen Kundendaten werden nach Abschluss des Auftrags oder Beendigung der Geschäftsbeziehung und Ablauf der ggf. bestehenden gesetzlichen Aufbewahrungsfristen gelöscht. Gesetzliche Aufbewahrungsfristen bleiben unberührt.</p>
-  </div>
 
 </main>
 
