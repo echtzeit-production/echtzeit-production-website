@@ -1620,6 +1620,7 @@
   var form      = document.getElementById('contact-form');
   var thanks    = document.getElementById('cf-thanks');
   var cfError   = document.getElementById('cf-error');
+  var formLoadedAt = Date.now();
   if (form && thanks && cfError) {
   function showError(msg) {
     cfError.textContent = msg;
@@ -1646,7 +1647,7 @@
     fetch('https://api.echtzeit-production.de/api/kontakt', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ name: name, email: email, betreff: betreff, nachricht: nachricht, website: honeypot }),
+      body:    JSON.stringify({ name: name, email: email, betreff: betreff, nachricht: nachricht, website: honeypot, ts: formLoadedAt }),
     })
     .then(function (r) { return r.json(); })
     .then(function (data) {

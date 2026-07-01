@@ -28,6 +28,17 @@ function isRateLimited(ip) {
   return false;
 }
 
+// Kein Mensch füllt Name/E-Mail/Nachricht in unter 3 Sekunden aus —
+// klassisches Bot-Signal. `ts` ist optional: fehlt es (altes gecachtes
+// Frontend-JS), wird der Timing-Check übersprungen statt echte Anfragen
+// stillschweigend zu verwerfen.
+const MIN_SUBMIT_MS = 3000;
+
+// Häufige Muster aus "Rechnung"/"überfällig"-Spam-Kampagnen. Kein Hard-Block —
+// nur Betreff-Tag, damit nie eine echte Anfrage verloren geht.
+const SPAM_LINK_PATTERN    = /(https?:\/\/|www\.)/i;
+const SPAM_KEYWORD_PATTERN = /(rechnung|invoice|mahnung|überfällig|zahlung\s*ausst|inkasso|bitcoin|krypto|usdt|wallet|seo[- ]?service|backlink|link\s*building|google\s*ranking)/i;
+
 function json(res, status, data) {
   res.writeHead(status, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify(data));
@@ -67,6 +78,16 @@ http.createServer(async (req, res) => {
     const honeypot  = String(data.website   || '');
     if (honeypot)   return json(res, 400, { error: 'Ungültige Anfrage.' });
 
+    // Timing-Check — nur wenn Frontend einen Zeitstempel mitschickt (siehe oben).
+    if (data.ts !== undefined) {
+      const elapsed = Date.now() - Number(data.ts);
+      if (!Number.isFinite(elapsed) || elapsed < MIN_SUBMIT_MS) {
+        console.warn(`Bot-Verdacht (Timing, ${elapsed}ms) – Origin ${origin}`);
+        // Fake-Erfolg: kein Hinweis an den Bot, dass er geblockt wurde.
+        return json(res, 200, { ok: true });
+      }
+    }
+
     const name      = String(data.name      || '').trim().slice(0, 200);
     const email     = String(data.email     || '').trim().slice(0, 200);
     const betreff   = String(data.betreff   || '').trim().slice(0, 200);
@@ -79,12 +100,17 @@ http.createServer(async (req, res) => {
       return json(res, 400, { error: 'Bitte eine gültige E-Mail-Adresse eingeben.' });
     }
 
+    const isSuspicious = SPAM_LINK_PATTERN.test(nachricht)
+      || SPAM_KEYWORD_PATTERN.test(nachricht)
+      || SPAM_KEYWORD_PATTERN.test(betreff);
+    const subjectPrefix = isSuspicious ? '⚠️ [SPAM-VERDACHT] ' : '';
+
     try {
       await transporter.sendMail({
         from:    `"Website Kontaktformular" <${SMTP_USER}>`,
         replyTo: `"${name}" <${email}>`,
         to:      toEmail,
-        subject: betreff || `Neue Anfrage von ${name} (${origin})`,
+        subject: subjectPrefix + (betreff || `Neue Anfrage von ${name} (${origin})`),
         text:    `Von: ${name}\nE-Mail: ${email}\nWebsite: ${origin}\n\n${nachricht}`,
         html:    `<p><strong>Von:</strong> ${name}</p><p><strong>E-Mail:</strong> <a href="mailto:${email}">${email}</a></p><p><strong>Website:</strong> ${origin}</p><hr><p>${nachricht.replace(/\n/g, '<br>')}</p>`,
       });
