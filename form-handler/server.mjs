@@ -3,9 +3,12 @@ import nodemailer from 'nodemailer';
 import { clients } from './clients.mjs';
 
 const PORT      = process.env.PORT      || 3001;
-const SMTP_HOST = process.env.SMTP_HOST || 'smtp.checkdomain.de';
+// Brevo SMTP-Relay — SMTP_USER/SMTP_PASS sind die Relay-Zugangsdaten aus dem
+// Brevo-Dashboard (SMTP & API), NICHT die E-Mail-Adresse eines Kunden-Postfachs.
+// Die tatsächliche Absenderadresse pro Kunde kommt aus clients.mjs (`from`).
+const SMTP_HOST = process.env.SMTP_HOST || 'smtp-relay.brevo.com';
 const SMTP_PORT = process.env.SMTP_PORT || 587;
-const SMTP_USER = process.env.SMTP_USER || 'info@echtzeit-production.de';
+const SMTP_USER = process.env.SMTP_USER || '';
 const SMTP_PASS = process.env.SMTP_PASS || '';
 
 const transporter = nodemailer.createTransport({
@@ -46,7 +49,9 @@ function json(res, status, data) {
 
 http.createServer(async (req, res) => {
   const origin  = (req.headers.origin || '').replace(/\/$/, '');
-  const toEmail = clients[origin];
+  const client  = clients[origin];
+  const toEmail = client?.to;
+  const fromEmail = client?.from;
 
   // CORS — nur bekannte Domains durchlassen
   if (toEmail) {
@@ -107,7 +112,7 @@ http.createServer(async (req, res) => {
 
     try {
       await transporter.sendMail({
-        from:    `"Website Kontaktformular" <${SMTP_USER}>`,
+        from:    `"Website Kontaktformular" <${fromEmail}>`,
         replyTo: `"${name}" <${email}>`,
         to:      toEmail,
         subject: subjectPrefix + (betreff || `Neue Anfrage von ${name} (${origin})`),
