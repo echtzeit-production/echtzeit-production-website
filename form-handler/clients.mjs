@@ -13,11 +13,11 @@ export const clients = {
   // FrischGetankt — Staging läuft auf der echtzeit-digital.de Subdomain,
   // frischgetankt.de/www zeigen aktuell noch auf die alte WordPress-Seite.
   // Beide schon eingetragen, damit der Umzug ohne Backend-Änderung klappt.
-  // `from` bleibt echtzeit-production.de, bis frischgetankt.de eine eigene
-  // verifizierte Brevo-Sendedomain hat.
-  'https://frischgetankt.echtzeit-digital.de': { to: 'info@frischgetankt.de', from: 'info@echtzeit-production.de' },
-  'https://frischgetankt.de':                  { to: 'info@frischgetankt.de', from: 'info@echtzeit-production.de' },
-  'https://www.frischgetankt.de':              { to: 'info@frischgetankt.de', from: 'info@echtzeit-production.de' },
+  // frischgetankt.de ist als Brevo-Sendedomain verifiziert (SPF/DKIM), daher
+  // `from` jetzt auf die eigene Domain umgestellt.
+  'https://frischgetankt.echtzeit-digital.de': { to: 'info@frischgetankt.de', from: 'info@frischgetankt.de' },
+  'https://frischgetankt.de':                  { to: 'info@frischgetankt.de', from: 'info@frischgetankt.de' },
+  'https://www.frischgetankt.de':              { to: 'info@frischgetankt.de', from: 'info@frischgetankt.de' },
 
   // Neue Kunden einfach hier ergänzen:
   // 'https://kunde2.de': { to: 'info@kunde2.de', from: 'info@echtzeit-production.de' },
